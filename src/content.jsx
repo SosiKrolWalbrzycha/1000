@@ -4,12 +4,11 @@ import { DiceContext } from './App'
 import Footer from './footer.jsx'
 
 const Content = props => {
-	const { cubeScore, handleButton, checkTheSame, markedDices, setMarkedDices } = useContext(DiceContext)
+	const { cubeScore, handleButton, checkTheSame, markedDices, setMarkedDices, throwNumber } = useContext(DiceContext)
 
 	const markSingleDice = e => {
 		const diceNumber = parseInt(e.target.getAttribute('data-key'))
-		console.log(diceNumber);
-
+	
 		if (markedDices[diceNumber] > 0) {
 			console.log('wieksze');
 			const newMarkedDices = [...markedDices];
@@ -22,6 +21,11 @@ const Content = props => {
 		setMarkedDices(newMarkedDices);
 		}
 	}
+
+
+
+
+
 
 	const singleDiceScore = props =>
 		props.map((score, index) => {
@@ -89,7 +93,7 @@ const Content = props => {
 		<div className='diceScore'>
 			<div className='dices'>{singleDiceScore(cubeScore)}</div>
 
-			<button onClick={handleButton}>Rzuć kostką</button>
+			<button onClick={handleButton}>Rzuć kośćmi - to Twój rzut numer {throwNumber}</button>
 		</div>
 	)
 }

@@ -6,21 +6,20 @@ import Footer from './footer.jsx'
 export const DiceContext = React.createContext()
 
 function App() {
-	const [cubeScore, setCubeScore] = useState([])
+	const [cubeScore, setCubeScore] = useState([0,0,0,0,0])
 	const [throwScore, setThrowScore] = useState([])
-	const [markedDices, setMarkedDices] = useState([0,0,0,0,0])
+	const [markedDices, setMarkedDices] = useState([0, 0, 0, 0, 0])
+	const [throwNumber, setThrowNumber] = useState(1)
 
 	const checkTheSame = array => {
 		const counts = {}
-
-	
 
 		const points = 0
 		for (const number of array) {
 			counts[number] = counts[number] ? counts[number] + 1 : 1
 		}
 
-		let updatedThrowScore = [];
+		let updatedThrowScore = []
 
 		if (counts[1] === 1) {
 			updatedThrowScore.push(['Jedna jedynka', 10, 1])
@@ -45,7 +44,7 @@ function App() {
 		if (counts[5] === 1) {
 			updatedThrowScore.push(['Jedna piątka', 5, 5])
 		}
-		
+
 		if (counts[5] === 2) {
 			updatedThrowScore.push(['Dwie piątki', 10, 5])
 		}
@@ -109,22 +108,25 @@ function App() {
 			updatedThrowScore.push(['Poker dwójki', 60, 2])
 		}
 		setThrowScore(updatedThrowScore)
-		
 	}
 
 	const handleButton = () => {
-		setCubeScore([
-			Math.floor(Math.random() * 6) + 1,
-			Math.floor(Math.random() * 6) + 1,
-			Math.floor(Math.random() * 6) + 1,
-			Math.floor(Math.random() * 6) + 1,
-			Math.floor(Math.random() * 6) + 1,
-		])
+		const newCubeScore = [...cubeScore]
+
+		for (let i = 0; i < cubeScore.length; i++) {
+			if (markedDices[i] === 0) {
+				newCubeScore[i] = Math.floor(Math.random() * 6) + 1
+			}
+		}
+
+		setCubeScore(newCubeScore)
+		setThrowNumber(prevState => prevState + 1)
 	}
 
 	return (
 		<div className='App'>
-			<DiceContext.Provider value={{ cubeScore, setCubeScore, handleButton, checkTheSame, throwScore, markedDices, setMarkedDices}}>
+			<DiceContext.Provider
+				value={{ cubeScore, setCubeScore, handleButton, checkTheSame, throwScore, markedDices, setMarkedDices, throwNumber }}>
 				<Navbar />
 				<Content />
 				<Footer />
