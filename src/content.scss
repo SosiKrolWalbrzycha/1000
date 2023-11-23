@@ -32,11 +32,24 @@
  
 }
 
+.score{
+    display: none;
+}
 
-button {
+.scoreActive {
+    display: flex;
+}
+
+
+.throwButton {
+    display: none;
     background-color: rgb(4, 236, 4);
     border: 2px solid black;
     border-radius: 10px;
     padding: 10px 10px;
     margin: 10px 10px;
+}
+
+.activeButton {
+    display: flex;
 }
