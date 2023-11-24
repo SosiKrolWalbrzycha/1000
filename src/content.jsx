@@ -142,11 +142,14 @@ else {newSupportTeacher[throwNumber][n] = 0}
 			</button>
 			<button
 				className={throwNumber > 0 ? 'throwButton activeButton' : 'throwButton'}
-				onClick={() => checkTheScore(markedDicesScore[throwNumber])}>
+				onClick={() => {checkTheScore()}}>
 				Podlicz wynik zaznaczonych kości
 			</button>
 			<div className={throwNumber > 0 ? 'score scoreActive' : 'score'}>
-				<p>score: {scoreNumber}</p>
+				<p>score: {
+				scoreNumber.reduce((accumulator, currentValue) => {
+				return accumulator + currentValue
+			}, 0)}</p>
 			</div>
 		</div>
 	)
