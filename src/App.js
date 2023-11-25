@@ -28,6 +28,12 @@ function App() {
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
 	])
+	const [checkedNumbers, setCheckedNumbers] = useState([
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+	])
 
 	const checkTheSame = array => {
 		const counts = {}
@@ -128,16 +134,13 @@ function App() {
 		setThrowScore(updatedThrowScore)
 	}
 
-	const newScoreNumber = [0,0,0]
-
+	const newScoreNumber = [0, 0, 0]
 
 	const checkTheScore = () => {
-
 		for (let a = throwNumber; a > 0; a--) {
 			const counts = {}
 
-
-			for (const number of markedDicesScore[a]) {
+			for (const number of checkedNumbers[a]) {
 				counts[number] = counts[number] ? counts[number] + 1 : 1
 			}
 
@@ -234,12 +237,11 @@ function App() {
 				return accumulator + currentValue
 			}, 0)
 
-			
-			newScoreNumber[a-1]=sum
-			
+			newScoreNumber[a - 1] = sum
+			setScoreNumber(newScoreNumber)
 		}
-		
-		console.log(newScoreNumber);
+
+		console.log(newScoreNumber)
 	}
 
 	const handleButton = () => {
@@ -273,6 +275,9 @@ function App() {
 					checkTheScore,
 					supportTeacher,
 					setSupportTeacher,
+					setThrowScore,
+					checkedNumbers,
+					setCheckedNumbers,
 				}}>
 				<Navbar />
 				<Content />

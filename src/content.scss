@@ -1,55 +1,85 @@
 .diceScore {
+	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
+	background-color: rgb(255, 255, 255);
 
-    .dices {
-        display: flex;
-        flex-direction: row;
-        color: white;
-    }
+	.firstLine {
+		display: flex;
+		flex-direction: row;
+		width: 80%;
+		justify-content: space-between;
+		p {
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+			font-weight: lighter;
+		}
+	}
 
+	.dices {
+		display: flex;
+		flex-direction: row;
+		color: rgb(0, 0, 0);
+	}
 
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
 
-    .fa-solid{
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        font-size: 40px;
-        margin: 10px 10px;
-        cursor: pointer;
-    
-    }
-  
-    .active{
-        border: 2px solid white;
-        border-radius: 5px;
-    }
-   
- 
+	.fa-solid {
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 50px;
+		font-size: 40px;
+		margin: 10px 10px;
+		cursor: pointer;
+	}
+
+	.active {
+		border: 3px solid rgb(0, 0, 0);
+		border-radius: 5px;
+	}
 }
 
-.score{
-    display: none;
+.score {
+	display: none;
 }
 
 .scoreActive {
-    display: flex;
+	display: flex;
 }
 
-
 .throwButton {
-    display: none;
-    background-color: rgb(4, 236, 4);
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 10px 10px;
-    margin: 10px 10px;
+	display: none;
+	background-color: green;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+			font-weight: bolder;font-size: 1rem;
+    border: none;
+	border-radius: 10px;
+	padding: 10px 20px;
+	margin: 10px 10px;
+    transition: background-color .3s, color .3s;
+}
+
+.throwButton:hover {
+    background-color: rgb(0, 240, 0);
+    color: black;
 }
 
 .activeButton {
-    display: flex;
+	display: flex;
+}
+
+@media (min-width: 576px) {
+	.diceScore {
+		width: 80%;
+		border-radius: 10px;
+	}
 }

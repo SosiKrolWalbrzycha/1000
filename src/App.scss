@@ -8,15 +8,22 @@ html{
 
 
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   position: relative;
   text-align: center;
   width: 100%;
   height: 100vh;
+  padding-top: 20px;
 }
 
 button{
   cursor: pointer;
 }
+
+
 
 
 
