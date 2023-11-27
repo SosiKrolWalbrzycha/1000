@@ -17,7 +17,9 @@ const Footer = props => {
 		const throwScoreIndex = parseInt(e.target.getAttribute('data-index'))
 		
 
-		const diceNumbers = []
+		let diceNumbers = []
+
+		if (diceNumber === 7) {diceNumbers = [0,1,2,3,4]} else {
 
 		for (let i = 0; i < cubeScore.length; i++) {
 			if (cubeScore[i] === diceNumber) {
@@ -25,7 +27,7 @@ const Footer = props => {
 			}
 		}
 
-		console.log(`diceNumbers ${diceNumbers}`)
+		console.log(`diceNumbers ${diceNumbers}`)}
 
 
 		for (let i = 0; i < diceNumbers.length; i++) {

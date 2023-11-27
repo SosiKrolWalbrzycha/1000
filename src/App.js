@@ -44,6 +44,23 @@ function App() {
 		}
 
 		let updatedThrowScore = []
+		const smallStreet = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 }
+		const bigStreet = { 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }
+
+		function matchesPattern(obj, pattern) {
+			for (let key in pattern) {
+				if (!obj[key] || obj[key] < pattern[key]) {
+					return false
+				}
+			}
+			return true
+		}
+
+		const str = [1,2,3,4,5]
+
+		if (matchesPattern(counts, smallStreet) || matchesPattern(counts, bigStreet)) {
+			updatedThrowScore.push(['Street', 150, 7])
+		}
 
 		if (counts[1] === 1) {
 			updatedThrowScore.push(['Jedna jedynka', 10, 1])
@@ -137,6 +154,9 @@ function App() {
 	const newScoreNumber = [0, 0, 0]
 
 	const checkTheScore = () => {
+		const mstreet = [1, 2, 3, 4, 5]
+		const dstreet = [2, 3, 4, 5, 6]
+
 		for (let a = throwNumber; a > 0; a--) {
 			const counts = {}
 
@@ -145,6 +165,22 @@ function App() {
 			}
 
 			let updatedThrowScore = []
+
+			const smallStreet = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 }
+			const bigStreet = { 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }
+
+			function matchesPattern(obj, pattern) {
+				for (let key in pattern) {
+					if (!obj[key] || obj[key] < pattern[key]) {
+						return false
+					}
+				}
+				return true
+			}
+
+			if (matchesPattern(counts, smallStreet) || matchesPattern(counts, bigStreet)) {
+				updatedThrowScore.push(150)
+			} else {
 
 			if (counts[1] === 1) {
 				updatedThrowScore.push(10)
@@ -231,7 +267,7 @@ function App() {
 
 			if (counts[2] === 5) {
 				updatedThrowScore.push(60)
-			}
+			}}
 
 			const sum = updatedThrowScore.reduce((accumulator, currentValue) => {
 				return accumulator + currentValue
@@ -256,6 +292,21 @@ function App() {
 		setCubeScore(newCubeScore)
 		setThrowNumber(prevState => prevState + 1)
 	}
+	const handleButtonAll = () => {
+		
+		setThrowNumber(prevState => prevState + 1)
+		const newMarkedDices = [...markedDices]
+		newMarkedDices[throwNumber] = [0,0,0,0,0]
+		setMarkedDices(newMarkedDices)
+		const newCubeScore = []
+
+		for (let i = 0; i < cubeScore.length; i++) {
+			{newCubeScore[i] = Math.floor(Math.random() * 6) + 1}
+		}
+
+		setCubeScore(newCubeScore)
+	
+	}
 
 	return (
 		<div className='App'>
@@ -277,7 +328,7 @@ function App() {
 					setSupportTeacher,
 					setThrowScore,
 					checkedNumbers,
-					setCheckedNumbers,
+					setCheckedNumbers,handleButtonAll
 				}}>
 				<Navbar />
 				<Content />
