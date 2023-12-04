@@ -35,13 +35,15 @@ function App() {
 		[0, 0, 0, 0, 0],
 	])
 
+	const [support, setSupport] = useState(0)
+
 	const checkTheSame = array => {
 		const counts = {}
-
-		const points = 0
 		for (const number of array) {
 			counts[number] = counts[number] ? counts[number] + 1 : 1
 		}
+
+		console.log(counts);
 
 		let updatedThrowScore = []
 		const smallStreet = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 }
@@ -56,7 +58,7 @@ function App() {
 			return true
 		}
 
-		const str = [1,2,3,4,5]
+
 
 		if (matchesPattern(counts, smallStreet) || matchesPattern(counts, bigStreet)) {
 			updatedThrowScore.push(['Street', 150, 7])
@@ -181,99 +183,99 @@ function App() {
 			if (matchesPattern(counts, smallStreet) || matchesPattern(counts, bigStreet)) {
 				updatedThrowScore.push(150)
 			} else {
+				if (counts[1] === 1) {
+					updatedThrowScore.push(10)
+				}
 
-			if (counts[1] === 1) {
-				updatedThrowScore.push(10)
-			}
+				if (counts[1] === 2) {
+					updatedThrowScore.push(20)
+				}
 
-			if (counts[1] === 2) {
-				updatedThrowScore.push(20)
-			}
+				if (counts[1] === 3) {
+					updatedThrowScore.push(100)
+				}
 
-			if (counts[1] === 3) {
-				updatedThrowScore.push(100)
-			}
+				if (counts[1] === 4) {
+					updatedThrowScore.push(200)
+				}
 
-			if (counts[1] === 4) {
-				updatedThrowScore.push(200)
-			}
+				if (counts[1] === 5) {
+					updatedThrowScore.push(400)
+				}
 
-			if (counts[1] === 5) {
-				updatedThrowScore.push(400)
-			}
+				if (counts[5] === 1) {
+					updatedThrowScore.push(5)
+				}
 
-			if (counts[5] === 1) {
-				updatedThrowScore.push(5)
-			}
+				if (counts[5] === 2) {
+					updatedThrowScore.push(10)
+				}
 
-			if (counts[5] === 2) {
-				updatedThrowScore.push(10)
-			}
+				if (counts[5] === 3) {
+					updatedThrowScore.push(50)
+				}
 
-			if (counts[5] === 3) {
-				updatedThrowScore.push(50)
-			}
+				if (counts[5] === 4) {
+					updatedThrowScore.push(100)
+				}
 
-			if (counts[5] === 4) {
-				updatedThrowScore.push(100)
-			}
+				if (counts[5] === 5) {
+					updatedThrowScore.push(200)
+				}
 
-			if (counts[5] === 5) {
-				updatedThrowScore.push(200)
-			}
+				if (counts[6] === 3) {
+					updatedThrowScore.push(60)
+				}
 
-			if (counts[6] === 3) {
-				updatedThrowScore.push(60)
-			}
+				if (counts[6] === 4) {
+					updatedThrowScore.push(120)
+				}
 
-			if (counts[6] === 4) {
-				updatedThrowScore.push(120)
-			}
+				if (counts[6] === 5) {
+					updatedThrowScore.push(240)
+				}
+				if (counts[4] === 3) {
+					updatedThrowScore.push(40)
+				}
 
-			if (counts[6] === 5) {
-				updatedThrowScore.push(240)
-			}
-			if (counts[4] === 3) {
-				updatedThrowScore.push(40)
-			}
+				if (counts[4] === 4) {
+					updatedThrowScore.push(80)
+				}
 
-			if (counts[4] === 4) {
-				updatedThrowScore.push(80)
-			}
+				if (counts[4] === 5) {
+					updatedThrowScore.push(160)
+				}
 
-			if (counts[4] === 5) {
-				updatedThrowScore.push(160)
-			}
+				if (counts[3] === 3) {
+					updatedThrowScore.push(30)
+				}
 
-			if (counts[3] === 3) {
-				updatedThrowScore.push(30)
-			}
+				if (counts[3] === 4) {
+					updatedThrowScore.push(60)
+				}
 
-			if (counts[3] === 4) {
-				updatedThrowScore.push(60)
-			}
+				if (counts[3] === 5) {
+					updatedThrowScore.push(90)
+				}
 
-			if (counts[3] === 5) {
-				updatedThrowScore.push(90)
-			}
+				if (counts[2] === 3) {
+					updatedThrowScore.push(20)
+				}
 
-			if (counts[2] === 3) {
-				updatedThrowScore.push(20)
-			}
+				if (counts[2] === 4) {
+					updatedThrowScore.push(40)
+				}
 
-			if (counts[2] === 4) {
-				updatedThrowScore.push(40)
+				if (counts[2] === 5) {
+					updatedThrowScore.push(60)
+				}
 			}
-
-			if (counts[2] === 5) {
-				updatedThrowScore.push(60)
-			}}
 
 			const sum = updatedThrowScore.reduce((accumulator, currentValue) => {
 				return accumulator + currentValue
 			}, 0)
 
-			newScoreNumber[a - 1] = sum
+			newScoreNumber[a-1] = sum
 			setScoreNumber(newScoreNumber)
 		}
 
@@ -293,19 +295,17 @@ function App() {
 		setThrowNumber(prevState => prevState + 1)
 	}
 	const handleButtonAll = () => {
-		
 		setThrowNumber(prevState => prevState + 1)
-		const newMarkedDices = [...markedDices]
-		newMarkedDices[throwNumber] = [0,0,0,0,0]
-		setMarkedDices(newMarkedDices)
+
 		const newCubeScore = []
 
 		for (let i = 0; i < cubeScore.length; i++) {
-			{newCubeScore[i] = Math.floor(Math.random() * 6) + 1}
+			{
+				newCubeScore[i] = Math.floor(Math.random() * 6) + 1
+			}
 		}
 
 		setCubeScore(newCubeScore)
-	
 	}
 
 	return (
@@ -328,7 +328,10 @@ function App() {
 					setSupportTeacher,
 					setThrowScore,
 					checkedNumbers,
-					setCheckedNumbers,handleButtonAll
+					setCheckedNumbers,
+					handleButtonAll,
+					support,
+					setSupport,
 				}}>
 				<Navbar />
 				<Content />

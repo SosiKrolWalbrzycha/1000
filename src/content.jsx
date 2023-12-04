@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import './content.scss'
 import { DiceContext } from './App'
 import Footer from './footer.jsx'
-
+import { Tooltip } from 'react-tooltip'
 
 const Content = props => {
 	const {
@@ -19,7 +19,11 @@ const Content = props => {
 		supportTeacher,
 		setSupportTeacher,
 		setThrowScore,
-		checkedNumbers, setCheckedNumbers, handleButtonAll
+		setMerkedDices,
+		checkedNumbers,
+		setCheckedNumbers,
+		setCubeScore,
+		handleButtonAll,
 	} = useContext(DiceContext)
 
 	const markSingleDice = e => {
@@ -32,7 +36,7 @@ const Content = props => {
 			const newCheckedNumbers = [...checkedNumbers]
 
 			for (let i = throwNumber; i < 4; i++) {
-				newMarkedDices[i][diceNumber] = 1;
+				newMarkedDices[i][diceNumber] = 1
 				newCheckedNumbers[throwNumber][diceNumber] = diceScore
 			}
 
@@ -44,14 +48,13 @@ const Content = props => {
 			const newMarkedDicesScore = [...markedDicesScore]
 			const newCheckedNumbers = [...checkedNumbers]
 			for (let i = throwNumber; i < 4; i++) {
-				newMarkedDices[i][diceNumber] = 0;
+				newMarkedDices[i][diceNumber] = 0
 				newCheckedNumbers[throwNumber][diceNumber] = 0
 			}
 			newMarkedDicesScore[throwNumber][diceNumber] = 0
 			setMarkedDices(newMarkedDices)
 			setMarkedDicesScore(newMarkedDicesScore)
 			setCheckedNumbers(newCheckedNumbers)
-			
 		}
 		checkTheScore()
 	}
@@ -105,7 +108,7 @@ const Content = props => {
 						data-key={index}
 						data-value={6}></i>
 				)
-			} else if(score === 5) {
+			} else if (score === 5) {
 				return (
 					<i
 						className={markedDices[throwNumber][index] === 1 ? 'fa-solid fa-dice-five active' : 'fa-solid fa-dice-five'}
@@ -122,10 +125,11 @@ const Content = props => {
 			const newSupportTeacher = [...supportTeacher]
 
 			for (let n = 0; n < 5; n++) {
-
-if (markedDices[throwNumber][n] === 0)
-{newSupportTeacher[throwNumber][n] = cubeScore[n]}
-else {newSupportTeacher[throwNumber][n] = 0}
+				if (markedDices[throwNumber][n] === 0) {
+					newSupportTeacher[throwNumber][n] = cubeScore[n]
+				} else {
+					newSupportTeacher[throwNumber][n] = 0
+				}
 			}
 
 			setSupportTeacher(newSupportTeacher)
@@ -134,44 +138,83 @@ else {newSupportTeacher[throwNumber][n] = 0}
 		}
 	}, [cubeScore])
 
-	const isEqualArray = (a, b) => 
-    a.length === b.length && a.every((value, index) => value === b[index]);
+	const isEqualArray = (a, b) => a.length === b.length && a.every((value, index) => value === b[index])
 
-	const isArrayNotEmpty = (array) => {return array.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}
+	const isArrayNotEmpty = array => {
+		return array.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+	}
+
+	let message
+
+	if (throwNumber === 0) {
+		message = 'Pora oddać pierwszy rzut!'
+	} 
+	
+	else if(throwNumber > 0 && scoreNumber[throwNumber-1] === 0) {message= 'Aby oddać kolejny rzut zaznacz przynajmniej jedną kość, która da Ci punkty:'}
+	
+	else if (throwNumber > 0 && scoreNumber[throwNumber - 1] > 0) {
+		message = 'Teraz możesz oddać rzut niezaznaczonymi kośćmi'
+	}
+	
+
 
 	return (
 		<div className='diceScore'>
-			<div className='firstLine'><p>Jestes po rzucie numer: {throwNumber}</p><p>Łączny wynik: {
-				scoreNumber.reduce((accumulator, currentValue) => {
-				return accumulator + currentValue
-			}, 0)} pkt</p></div>
-			<p >Zaznacz kości które dadzą Ci punkty i chcesz pozostawić:</p>
+			<div className='firstLine'>
+				<div className='line'>
+					<p>Jestes po rzucie numer: {throwNumber}</p>
+					<button
+						className='support'
+						data-tooltip-id='second-tooltip'
+						data-tooltip-html='<div><h3>Numer rzutu</h3><p>Obok widzisz numer rzutu który własnie wykonujesz. Jesli jesteś po rzucie 0 to aplikacja oczekuje na Twój pierwszy rzut. Pamiętaj masz maksymalnie trzy rzuty.</p></div '
+						data-tooltip-variant='success'>
+						?
+					</button>
+					<Tooltip id='second-tooltip' place='bottom-start' className='supportWindow' events={['hover']} />
+				</div>
+				<div className='line'>
+					<p>
+						Łączny wynik:{' '}
+						{scoreNumber.reduce((accumulator, currentValue) => {
+							return accumulator + currentValue
+						}, 0)}{' '}
+						pkt
+					</p>
+					<button
+						className='support'
+						data-tooltip-id='third-tooltip'
+						data-tooltip-html='<div><h3>Łączny wynik</h3><p>Obok widzisz łaczną liczbe punktów które udało Ci się zgromadzić na zaznaczonych kościach. Aplikacja automatycznie sumuje wyniki wszytskich trzech wykonanych rzutów. Pamiętaj, że wyniki potrójne i większe oraz streety liczą się tylko wtedy gdy sa osiągnięte w jednym rzucie.</p></div '
+						data-tooltip-variant='success'>
+						?
+					</button>
+					<Tooltip id='third-tooltip' place='bottom-end' className='supportWindow' events={['hover']} />
+				</div>
+			</div>
+			<p>{message}</p>
 			<div className='dices'>{singleDiceScore(cubeScore)}</div>
 			<div className='buttons'>
+				<button className={throwNumber === 0 ? 'throwButton activeButton' : 'throwButton'} onClick={handleButton}>
+					Rzuć kośćmi - rzut numer {throwNumber + 1}
+				</button>
 
-			<button className={throwNumber === 0 ? 'throwButton activeButton' : 'throwButton'} onClick={handleButton}>
-				Rzuć kośćmi 1
-			</button>
-			<button className={throwNumber === 1 && scoreNumber[throwNumber-1] > 0? 'throwButton activeButton' : 'throwButton'} onClick={handleButton}>
-				Rzucaj! Rzut numer 2.
-			</button>
-			<button className={throwNumber === 2 && scoreNumber[throwNumber-1] > 0? 'throwButton activeButton' : 'throwButton'} onClick={handleButton}>
-				Rzuć kośćmi 3
-			</button>
-			<button className={throwNumber === 3 && scoreNumber[throwNumber-1] > 0? 'throwButton activeButton' : 'throwButton'}>
-				Wykorzystałeś trzy rzuty
-			</button>
-			
-			{/* <button className={isEqualArray(markedDices[throwNumber], [1, 1, 1, 1, 1]) && isArrayNotEmpty(markedDicesScore[throwNumber])? 'throwButton activeButton' : 'throwButton'} onClick={handleButtonAll}>
-				Wykonaj rzut wszystkimi koścmi
-			</button> */}
+				<button
+					className={
+						(throwNumber === 0 || throwNumber === 1 || throwNumber === 2) && scoreNumber[throwNumber - 1] > 0
+							? 'throwButton activeButton'
+							: 'throwButton'
+					}
+					onClick={handleButton}>
+					Rzuć kośćmi - rzut numer {throwNumber + 1}
+				</button>
+
+				<button
+					className={
+						throwNumber === 3 && scoreNumber[throwNumber - 1] > 0 ? 'throwButton activeButton' : 'throwButton'
+					}>
+					Wykorzystałeś trzy rzuty - kliknij aby podsumować
+				</button>
 			</div>
-			<div className={throwNumber > 0 ? 'score scoreActive' : 'score'}>
-			</div>
-			
-
-
-
+			<div className={throwNumber > 0 ? 'score scoreActive' : 'score'}></div>
 		</div>
 	)
 }
