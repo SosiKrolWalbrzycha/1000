@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './navbar.jsx'
 import Content from './content.jsx'
 import Footer from './footer.jsx'
+import Scoreadd from './scoreadd.jsx'
+import Scoreboard from './scoreboard.jsx'
 export const DiceContext = React.createContext()
 
 function App() {
@@ -37,13 +39,58 @@ function App() {
 
 	const [support, setSupport] = useState(0)
 
+	const scoreboard = [
+		[41, 'Michał', 243552841000],
+		[42, 'Michał', 243552842000],
+		[43, 'Michał', 243552843000],
+		[44, 'Michał', 243552844000],
+		[45, 'Michał', 243552845000],
+		[46, 'Michał', 243552846000],
+		[47, 'Michał', 243552847000],
+		[48, 'Michał', 243552848000],
+		[495, 'Michał', 243552849000],
+		[459, 'Michał', 243552841000],
+
+	]
+
+	const resetState = () => {
+		setThrowNumber(0)
+		setScoreNumber([0, 0, 0])
+		
+		setMarkedDices([
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+		])
+		setMarkedDicesScore([
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+		])
+		setSupportTeacher([
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+		])
+		setCheckedNumbers([
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0],
+		])
+		setCubeScore([1, 1, 1, 1, 1])
+	}
+
 	const checkTheSame = array => {
 		const counts = {}
 		for (const number of array) {
 			counts[number] = counts[number] ? counts[number] + 1 : 1
 		}
 
-		console.log(counts);
+		console.log(counts)
 
 		let updatedThrowScore = []
 		const smallStreet = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 }
@@ -57,8 +104,6 @@ function App() {
 			}
 			return true
 		}
-
-
 
 		if (matchesPattern(counts, smallStreet) || matchesPattern(counts, bigStreet)) {
 			updatedThrowScore.push(['Street', 150, 7])
@@ -275,7 +320,7 @@ function App() {
 				return accumulator + currentValue
 			}, 0)
 
-			newScoreNumber[a-1] = sum
+			newScoreNumber[a - 1] = sum
 			setScoreNumber(newScoreNumber)
 		}
 
@@ -332,10 +377,14 @@ function App() {
 					handleButtonAll,
 					support,
 					setSupport,
+					resetState,
+					scoreboard
 				}}>
 				<Navbar />
 				<Content />
 				<Footer />
+				<Scoreboard/>
+				<Scoreadd/>
 			</DiceContext.Provider>
 		</div>
 	)

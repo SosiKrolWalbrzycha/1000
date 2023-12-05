@@ -15,6 +15,7 @@ const Content = props => {
 		scoreNumber,
 		markedDicesScore,
 		setMarkedDicesScore,
+		setThrowNumber,
 		checkTheScore,
 		supportTeacher,
 		setSupportTeacher,
@@ -24,6 +25,9 @@ const Content = props => {
 		setCheckedNumbers,
 		setCubeScore,
 		handleButtonAll,
+		setScoreNumber,
+		resetState
+		
 	} = useContext(DiceContext)
 
 	const markSingleDice = e => {
@@ -121,6 +125,7 @@ const Content = props => {
 		})
 
 	useEffect(() => {
+		if (throwNumber > 0) {
 		if (cubeScore) {
 			const newSupportTeacher = [...supportTeacher]
 
@@ -136,7 +141,7 @@ const Content = props => {
 
 			checkTheSame(newSupportTeacher[throwNumber])
 		}
-	}, [cubeScore])
+	}}, [cubeScore])
 
 	const isEqualArray = (a, b) => a.length === b.length && a.every((value, index) => value === b[index])
 
@@ -148,14 +153,12 @@ const Content = props => {
 
 	if (throwNumber === 0) {
 		message = 'Pora oddać pierwszy rzut!'
-	} 
-	
-	else if(throwNumber > 0 && scoreNumber[throwNumber-1] === 0) {message= 'Aby oddać kolejny rzut zaznacz przynajmniej jedną kość, która da Ci punkty:'}
-	
-	else if (throwNumber > 0 && scoreNumber[throwNumber - 1] > 0) {
+	} else if (throwNumber > 0 && scoreNumber[throwNumber - 1] === 0) {
+		message = 'Aby oddać kolejny rzut zaznacz przynajmniej jedną kość, która da Ci punkty:'
+	} else if (throwNumber > 0 && scoreNumber[throwNumber - 1] > 0) {
 		message = 'Teraz możesz oddać rzut niezaznaczonymi kośćmi'
 	}
-	
+
 
 
 	return (
@@ -166,7 +169,7 @@ const Content = props => {
 					<button
 						className='support'
 						data-tooltip-id='second-tooltip'
-						data-tooltip-html='<div><h3>Numer rzutu</h3><p>Obok widzisz numer rzutu który własnie wykonujesz. Jesli jesteś po rzucie 0 to aplikacja oczekuje na Twój pierwszy rzut. Pamiętaj masz maksymalnie trzy rzuty.</p></div '
+						data-tooltip-html='<div><h3>Numer rzutu</h3><p>Obok widzisz numer rzutu który właśnie wykonałeś. Jesli jesteś po rzucie 0 to aplikacja oczekuje na Twój pierwszy rzut. Pamiętaj masz maksymalnie trzy rzuty.</p></div '
 						data-tooltip-variant='success'>
 						?
 					</button>
@@ -183,7 +186,7 @@ const Content = props => {
 					<button
 						className='support'
 						data-tooltip-id='third-tooltip'
-						data-tooltip-html='<div><h3>Łączny wynik</h3><p>Obok widzisz łaczną liczbe punktów które udało Ci się zgromadzić na zaznaczonych kościach. Aplikacja automatycznie sumuje wyniki wszytskich trzech wykonanych rzutów. Pamiętaj, że wyniki potrójne i większe oraz streety liczą się tylko wtedy gdy sa osiągnięte w jednym rzucie.</p></div '
+						data-tooltip-html='<div><h3>Łączny wynik</h3><p>Obok widzisz łaczną liczbę punktów, które udało Ci się zgromadzić na zaznaczonych kościach. Aplikacja automatycznie sumuje wyniki wszytskich trzech wykonanych rzutów. Pamiętaj, że wyniki potrójne i większe (poczwórne,popiątne) oraz streety liczą się tylko wtedy gdy sa osiągnięte w jednym rzucie.</p></div '
 						data-tooltip-variant='success'>
 						?
 					</button>
@@ -199,7 +202,9 @@ const Content = props => {
 
 				<button
 					className={
-						(throwNumber === 0 || throwNumber === 1 || throwNumber === 2) && scoreNumber[throwNumber - 1] > 0
+						(throwNumber === 0 || throwNumber === 1 || throwNumber === 2) && scoreNumber[throwNumber - 1] > 0 && markedDices[throwNumber].reduce((accumulator, currentValue) => {
+							return accumulator + currentValue
+						}, 0) < 5
 							? 'throwButton activeButton'
 							: 'throwButton'
 					}
@@ -211,7 +216,44 @@ const Content = props => {
 					className={
 						throwNumber === 3 && scoreNumber[throwNumber - 1] > 0 ? 'throwButton activeButton' : 'throwButton'
 					}>
-					Wykorzystałeś trzy rzuty - kliknij aby podsumować
+					Trzy rzuty i wynik{' '}
+					{scoreNumber.reduce((accumulator, currentValue) => {
+						return accumulator + currentValue
+					}, 0)}{' '}
+					pkt. Kliknij aby zapisać wynik.
+				</button>
+				<button
+					className={
+						(throwNumber === 1 || throwNumber === 2 || throwNumber === 3) &&
+						scoreNumber[throwNumber - 1] === 0 &&
+						markedDices[throwNumber].reduce((accumulator, currentValue) => {
+							return accumulator + currentValue
+						}, 0) >
+							markedDices[throwNumber - 1].reduce((accumulator, currentValue) => {
+								return accumulator + currentValue
+							}, 0)
+							? 'throwButton activeButton'
+							: 'throwButton'
+					} onClick={resetState}>
+					Jeśli nie zaznaczysz układu będzie fura - kliknij aby zacząć od nowa
+				</button>
+				<button
+					className={
+						(throwNumber === 1 || throwNumber === 2) &&
+						markedDices[throwNumber].reduce((accumulator, currentValue) => {
+							return accumulator + currentValue
+						}, 0) === 5 &&
+						markedDices[throwNumber].reduce((accumulator, currentValue) => {
+							return accumulator + currentValue
+						}, 0) >
+							markedDices[throwNumber - 1].reduce((accumulator, currentValue) => {
+								return accumulator + currentValue
+							}, 0) &&
+						scoreNumber[throwNumber - 1] > 0
+							? 'throwButton activeButton'
+							: 'throwButton'
+					}>
+					Zaznaczyłeś wszystkie kości - możesz zapisać wynik.
 				</button>
 			</div>
 			<div className={throwNumber > 0 ? 'score scoreActive' : 'score'}></div>

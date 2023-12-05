@@ -53,7 +53,7 @@ const Navbar = () => {
 					<button
 						className='support'
 						data-tooltip-id='my-tooltip'
-						data-tooltip-html='<div><h3>O co chodzi?</h3><p>Oddaję w Twoje ręce aplikację uczącą gry w tysiąca. Zasady tej gry sa proste. Gracz otrzymuje pięć kości i dokonuje pierwszego rzutu za pomocą wszystkich z nich. Ma on prawo do kolejnych rzutów, ale tylko wtedy, gdy posiada jakiś układ wyrzucony za jednym razem. Za układy uznaje się: każdą jedynkę lub piątkę, co najmniej trzy takie same oczka i tzw. strita, czyli pięć oczek po kolei. Gracz odkłada (zaznacza) kości które tworzyły układ i może rzucać resztą kości. Jeśli wszystkie pięć kostek tworzy układ lub gracz odłożył wszystkie swoje kości to uzyskany wyniok można zapisać w tabeli wyników.</p></div '
+						data-tooltip-html='<div><h3>O co chodzi?</h3><p>Oddaję w Twoje ręce aplikację uczącą gry w tysiąca. Zasady tej gry są bardzo proste. Gracz otrzymuje pięć kości i dokonuje pierwszego rzutu za pomocą wszystkich z nich. Ma on prawo do kolejnych rzutów, ale tylko wtedy, gdy posiada jakiś układ wyrzucony za pierwszym razem. Za układy uznaje się: każdą jedynkę lub piątkę, co najmniej trzy takie same oczka i tzw. strita, czyli pięć oczek po kolei. Gracz odkłada (zaznacza) kości które tworzyły układ i może rzucać resztą kości. Grę kończysz gdy wszystkie pięć kostek tworzy układ lub gracz odłożył wszystkie swoje kości (w dowolnych układach). Uzyskany wynik można zapisać w tabeli wyników, przypisanych do tej przeglądarki. Pamiętaj - czasami warto nie zaznaczć kiepskiego układu (np. piątki) aby potem wykorzystać lepiej potencjał pozostałych kości. </p></div '
 						data-tooltip-variant='success'>
 						?
 					</button>
@@ -62,8 +62,10 @@ const Navbar = () => {
 			</div>
 
 			<div className='range'>
-				<p>Zadecyduj czy potrzebujesz pomocy</p>
-				<input className='rangeinput' type='range' min='0' max='1' value={support} onChange={handleRange}/>
+				<p>Zadecyduj czy potrzebujesz pomocy:</p>
+				<div className='switcher'><p className='txt'>NIE</p><input className='rangeinput' type='range' min='0' max='1' value={support} onChange={handleRange}/><p className='txt'>TAK</p></div>
+				
+				
 			</div>
 		</div>
 	)
