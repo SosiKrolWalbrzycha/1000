@@ -37,26 +37,49 @@ function App() {
 		[0, 0, 0, 0, 0],
 	])
 
-	const [support, setSupport] = useState(0)
-
-	const scoreboard = [
+	const [scoreboard, setScoreboard] = useState([
 		[41, 'Michał', 243552841000],
 		[42, 'Michał', 243552842000],
-		[43, 'Michał', 243552843000],
+		[49, 'Michał', 243552843000],
 		[44, 'Michał', 243552844000],
-		[45, 'Michał', 243552845000],
-		[46, 'Michał', 243552846000],
-		[47, 'Michał', 243552847000],
-		[48, 'Michał', 243552848000],
-		[495, 'Michał', 243552849000],
-		[459, 'Michał', 243552841000],
+	])
 
-	]
+	const [support, setSupport] = useState(0)
+
+	const [sortedScores, setSortedScores] = useState(scoreboard)
+
+	useEffect(() => {sortNormally()}, [scoreboard])
+
+	const adToScoreboard = e => {
+		const newScoreBoard = [...scoreboard]
+		newScoreBoard.push([78, 'Marcin', 243552844000])
+		setScoreboard(newScoreBoard)
+	}
+
+	const sortByPoints = () => {
+		const sorted = [...scoreboard].sort((a, b) => b[0] - a[0])
+		setSortedScores(sorted)
+	}
+
+	const sortByName = () => {
+		const sorted = [...scoreboard].sort((a, b) => a[1].localeCompare(b[1]))
+		setSortedScores(sorted)
+	}
+
+	const sortByDate = () => {
+		const sorted = [...scoreboard].sort((a, b) => new Date(a[2]) - new Date(b[2]));
+		setSortedScores(sorted);
+	  };
+
+	  const sortNormally = () =>{
+		const sorted = [...scoreboard]
+		setSortedScores(sorted);
+	  }
 
 	const resetState = () => {
 		setThrowNumber(0)
 		setScoreNumber([0, 0, 0])
-		
+
 		setMarkedDices([
 			[0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0],
@@ -378,13 +401,18 @@ function App() {
 					support,
 					setSupport,
 					resetState,
-					scoreboard
+					scoreboard,
+					adToScoreboard,sortedScores,
+					sortByPoints,
+					sortByName,
+					sortByDate,
+					sortNormally,
 				}}>
 				<Navbar />
 				<Content />
 				<Footer />
-				<Scoreboard/>
-				<Scoreadd/>
+				<Scoreboard />
+				<Scoreadd />
 			</DiceContext.Provider>
 		</div>
 	)

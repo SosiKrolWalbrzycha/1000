@@ -26,7 +26,8 @@ const Content = props => {
 		setCubeScore,
 		handleButtonAll,
 		setScoreNumber,
-		resetState
+		resetState,
+		adToScoreboard
 		
 	} = useContext(DiceContext)
 
@@ -237,7 +238,7 @@ const Content = props => {
 					} onClick={resetState}>
 					Jeśli nie zaznaczysz układu będzie fura - kliknij aby zacząć od nowa
 				</button>
-				<button
+				<button onClick={adToScoreboard}
 					className={
 						(throwNumber === 1 || throwNumber === 2) &&
 						markedDices[throwNumber].reduce((accumulator, currentValue) => {
