@@ -1,0 +1,52 @@
+.addscore {
+	display: none;
+    position: fixed;
+	flex-direction: column;
+	justify-content:center;
+	align-items: left;
+	
+	top: 0;
+	left: 0;
+   height: 100%;
+	width: 100vw;
+	background-color: black;
+    
+
+	h1,
+	h2 {
+		color: white;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		label {
+			p {
+				color: white;
+			}
+		}
+
+		#imie {
+			height: 30px;
+            text-align: center;
+		}
+
+        #imie::placeholder {
+            text-align: center;
+        }
+
+		.addscorebutton {
+			margin-top: 30px;
+			width: 100px;
+			height: 30px;
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            border: none;
+		}
+	}
+}
+
+.active {display: flex;}

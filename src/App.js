@@ -37,23 +37,37 @@ function App() {
 		[0, 0, 0, 0, 0],
 	])
 
-	const [scoreboard, setScoreboard] = useState([
-		[41, 'Michał', 243552841000],
-		[42, 'Michał', 243552842000],
-		[49, 'Michał', 243552843000],
-		[44, 'Michał', 243552844000],
-	])
+	const [scoreboard, setScoreboard] = useState([])
 
 	const [support, setSupport] = useState(0)
 
 	const [sortedScores, setSortedScores] = useState(scoreboard)
 
+	const [scoreAddVisible, setScoreAddVisible] = useState(false)
+
+	const [name,setName] = useState('')
+
 	useEffect(() => {sortNormally()}, [scoreboard])
 
-	const adToScoreboard = e => {
+	const addName = e => {
+		const newName = e.target.value
+		setName(newName)
+	}
+
+	const showAddScore = () => {
+		setScoreAddVisible(true)
+	}
+
+	const adToScoreboard = event => {
+		event.preventDefault();
+		console.log('dodajemy wynik');
 		const newScoreBoard = [...scoreboard]
-		newScoreBoard.push([78, 'Marcin', 243552844000])
+		newScoreBoard.push([scoreNumber.reduce((accumulator, currentValue) => {
+			return accumulator + currentValue
+		}, 0), name, 243552844000])
+		setScoreAddVisible(false)
 		setScoreboard(newScoreBoard)
+		resetState()
 	}
 
 	const sortByPoints = () => {
@@ -105,6 +119,8 @@ function App() {
 			[0, 0, 0, 0, 0],
 		])
 		setCubeScore([1, 1, 1, 1, 1])
+
+		setName('')
 	}
 
 	const checkTheSame = array => {
@@ -406,7 +422,8 @@ function App() {
 					sortByPoints,
 					sortByName,
 					sortByDate,
-					sortNormally,
+					sortNormally,scoreAddVisible, showAddScore,
+					name,setName, addName, scoreboard
 				}}>
 				<Navbar />
 				<Content />

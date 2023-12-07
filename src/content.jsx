@@ -27,7 +27,7 @@ const Content = props => {
 		handleButtonAll,
 		setScoreNumber,
 		resetState,
-		adToScoreboard
+		adToScoreboard, showAddScore
 		
 	} = useContext(DiceContext)
 
@@ -213,7 +213,7 @@ const Content = props => {
 					Rzuć kośćmi - rzut numer {throwNumber + 1}
 				</button>
 
-				<button
+				<button onClick={showAddScore} 
 					className={
 						throwNumber === 3 && scoreNumber[throwNumber - 1] > 0 ? 'throwButton activeButton' : 'throwButton'
 					}>
@@ -238,7 +238,7 @@ const Content = props => {
 					} onClick={resetState}>
 					Jeśli nie zaznaczysz układu będzie fura - kliknij aby zacząć od nowa
 				</button>
-				<button onClick={adToScoreboard}
+				<button onClick={showAddScore}
 					className={
 						(throwNumber === 1 || throwNumber === 2) &&
 						markedDices[throwNumber].reduce((accumulator, currentValue) => {

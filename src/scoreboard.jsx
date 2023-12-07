@@ -3,11 +3,7 @@ import './scoreboard.scss'
 import { DiceContext } from './App'
 
 const Scoreboard = () => {
-	const { sortedScores,
-        sortByPoints,
-        sortByName,
-        sortByDate,
-        sortNormally } = useContext(DiceContext)
+	const { sortedScores, sortByPoints, sortByName, sortByDate, sortNormally, scoreboard } = useContext(DiceContext)
 
 	const showDate = e => {
 		var timestamp = e
@@ -33,7 +29,9 @@ const Scoreboard = () => {
 
 	return (
 		<div className='scores'>
-			<h2>Lista najlepszych wyników: <button onClick={sortNormally}>nie sortuj</button></h2>
+			<h2>
+				Lista najlepszych wyników: <button onClick={sortNormally}>nie sortuj</button>
+			</h2>
 
 			<table>
 				<thead>
@@ -42,10 +40,12 @@ const Scoreboard = () => {
 							<p className='title'>Liczba punktów</p> <button onClick={sortByPoints}>sort</button>
 						</th>
 						<th className='firstcolumn'>
-							<p className='title'>Imię</p><button onClick={sortByName}>sort</button>
+							<p className='title'>Imię</p>
+							<button onClick={sortByName}>sort</button>
 						</th>
 						<th className='firstcolumn'>
-							<p className='title'>Data</p><button onClick={sortByDate}>sort</button>
+							<p className='title'>Data</p>
+							<button onClick={sortByDate}>sort</button>
 						</th>
 					</tr>
 				</thead>
