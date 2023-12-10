@@ -55,7 +55,7 @@ const Navbar = () => {
 						data-tooltip-id='my-tooltip'
 						data-tooltip-html='<div><h3>O co chodzi?</h3><p>Oddaję w Twoje ręce aplikację uczącą gry w tysiąca. Zasady tej gry są bardzo proste. Gracz otrzymuje pięć kości i dokonuje pierwszego rzutu za pomocą wszystkich z nich. Ma on prawo do kolejnych rzutów, ale tylko wtedy, gdy posiada jakiś układ wyrzucony za pierwszym razem. Za układy uznaje się: każdą jedynkę lub piątkę, co najmniej trzy takie same oczka i tzw. strita, czyli pięć oczek po kolei. Gracz odkłada (zaznacza) kości które tworzyły układ i może rzucać resztą kości. Grę kończysz gdy wszystkie pięć kostek tworzy układ lub gracz odłożył wszystkie swoje kości (w dowolnych układach). Uzyskany wynik można zapisać w tabeli wyników, przypisanych do tej przeglądarki. Pamiętaj - czasami warto nie zaznaczć kiepskiego układu (np. piątki) aby potem wykorzystać lepiej potencjał pozostałych kości. </p></div '
 						data-tooltip-variant='success'>
-						?
+					<i className='fa-solid fa-question'></i>
 					</button>
 					<Tooltip id='my-tooltip' place='bottom-end' className='supportWindow' events={['hover']} />
 				</div>

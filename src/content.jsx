@@ -27,8 +27,8 @@ const Content = props => {
 		handleButtonAll,
 		setScoreNumber,
 		resetState,
-		adToScoreboard, showAddScore
-		
+		adToScoreboard,
+		showAddScore,
 	} = useContext(DiceContext)
 
 	const markSingleDice = e => {
@@ -127,22 +127,23 @@ const Content = props => {
 
 	useEffect(() => {
 		if (throwNumber > 0) {
-		if (cubeScore) {
-			const newSupportTeacher = [...supportTeacher]
+			if (cubeScore) {
+				const newSupportTeacher = [...supportTeacher]
 
-			for (let n = 0; n < 5; n++) {
-				if (markedDices[throwNumber][n] === 0) {
-					newSupportTeacher[throwNumber][n] = cubeScore[n]
-				} else {
-					newSupportTeacher[throwNumber][n] = 0
+				for (let n = 0; n < 5; n++) {
+					if (markedDices[throwNumber][n] === 0) {
+						newSupportTeacher[throwNumber][n] = cubeScore[n]
+					} else {
+						newSupportTeacher[throwNumber][n] = 0
+					}
 				}
+
+				setSupportTeacher(newSupportTeacher)
+
+				checkTheSame(newSupportTeacher[throwNumber])
 			}
-
-			setSupportTeacher(newSupportTeacher)
-
-			checkTheSame(newSupportTeacher[throwNumber])
 		}
-	}}, [cubeScore])
+	}, [cubeScore])
 
 	const isEqualArray = (a, b) => a.length === b.length && a.every((value, index) => value === b[index])
 
@@ -160,8 +161,6 @@ const Content = props => {
 		message = 'Teraz możesz oddać rzut niezaznaczonymi kośćmi'
 	}
 
-
-
 	return (
 		<div className='diceScore'>
 			<div className='firstLine'>
@@ -172,7 +171,7 @@ const Content = props => {
 						data-tooltip-id='second-tooltip'
 						data-tooltip-html='<div><h3>Numer rzutu</h3><p>Obok widzisz numer rzutu który właśnie wykonałeś. Jesli jesteś po rzucie 0 to aplikacja oczekuje na Twój pierwszy rzut. Pamiętaj masz maksymalnie trzy rzuty.</p></div '
 						data-tooltip-variant='success'>
-						?
+						<i className='fa-solid fa-question'></i>
 					</button>
 					<Tooltip id='second-tooltip' place='bottom-start' className='supportWindow' events={['hover']} />
 				</div>
@@ -189,7 +188,7 @@ const Content = props => {
 						data-tooltip-id='third-tooltip'
 						data-tooltip-html='<div><h3>Łączny wynik</h3><p>Obok widzisz łaczną liczbę punktów, które udało Ci się zgromadzić na zaznaczonych kościach. Aplikacja automatycznie sumuje wyniki wszytskich trzech wykonanych rzutów. Pamiętaj, że wyniki potrójne i większe (poczwórne,popiątne) oraz streety liczą się tylko wtedy gdy sa osiągnięte w jednym rzucie.</p></div '
 						data-tooltip-variant='success'>
-						?
+						<i className='fa-solid fa-question'></i>
 					</button>
 					<Tooltip id='third-tooltip' place='bottom-end' className='supportWindow' events={['hover']} />
 				</div>
@@ -203,7 +202,9 @@ const Content = props => {
 
 				<button
 					className={
-						(throwNumber === 0 || throwNumber === 1 || throwNumber === 2) && scoreNumber[throwNumber - 1] > 0 && markedDices[throwNumber].reduce((accumulator, currentValue) => {
+						(throwNumber === 0 || throwNumber === 1 || throwNumber === 2) &&
+						scoreNumber[throwNumber - 1] > 0 &&
+						markedDices[throwNumber].reduce((accumulator, currentValue) => {
 							return accumulator + currentValue
 						}, 0) < 5
 							? 'throwButton activeButton'
@@ -213,7 +214,8 @@ const Content = props => {
 					Rzuć kośćmi - rzut numer {throwNumber + 1}
 				</button>
 
-				<button onClick={showAddScore} 
+				<button
+					onClick={showAddScore}
 					className={
 						throwNumber === 3 && scoreNumber[throwNumber - 1] > 0 ? 'throwButton activeButton' : 'throwButton'
 					}>
@@ -235,10 +237,12 @@ const Content = props => {
 							}, 0)
 							? 'throwButton activeButton'
 							: 'throwButton'
-					} onClick={resetState}>
+					}
+					onClick={resetState}>
 					Jeśli nie zaznaczysz układu będzie fura - kliknij aby zacząć od nowa
 				</button>
-				<button onClick={showAddScore}
+				<button
+					onClick={showAddScore}
 					className={
 						(throwNumber === 1 || throwNumber === 2) &&
 						markedDices[throwNumber].reduce((accumulator, currentValue) => {

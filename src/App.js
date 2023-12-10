@@ -5,6 +5,7 @@ import Content from './content.jsx'
 import Footer from './footer.jsx'
 import Scoreadd from './scoreadd.jsx'
 import Scoreboard from './scoreboard.jsx'
+import { current } from '@reduxjs/toolkit'
 export const DiceContext = React.createContext()
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
 		[0, 0, 0, 0, 0],
 	])
 
-	const [scoreboard, setScoreboard] = useState([])
+	const [scoreboard, setScoreboard] = useState(JSON.parse(localStorage.getItem('1000score')) || [])
 
 	const [support, setSupport] = useState(0)
 
@@ -60,11 +61,24 @@ function App() {
 
 	const adToScoreboard = event => {
 		event.preventDefault();
-		console.log('dodajemy wynik');
+		let scoreInStorage = JSON.parse(localStorage.getItem('1000score')) || [];
+
+	
+
+		const currentDate = Date.now();
 		const newScoreBoard = [...scoreboard]
-		newScoreBoard.push([scoreNumber.reduce((accumulator, currentValue) => {
+		const scoreToAd = scoreNumber.reduce((accumulator, currentValue) => {
 			return accumulator + currentValue
-		}, 0), name, 243552844000])
+		}, 0);
+
+		newScoreBoard.push([scoreToAd, name, currentDate])
+		console.log(scoreInStorage);
+
+
+		scoreInStorage.push([scoreToAd, name, currentDate])
+		localStorage.setItem('1000score', JSON.stringify(scoreInStorage) );
+
+
 		setScoreAddVisible(false)
 		setScoreboard(newScoreBoard)
 		resetState()

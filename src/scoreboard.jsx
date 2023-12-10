@@ -17,7 +17,7 @@ const Scoreboard = () => {
 				<th className='firstcolumn'>
 					<p className='data'>{score[0]} punktów</p>
 				</th>
-				<th className='firstcolumname'>
+				<th className='firstcolumn'>
 					<p className='data'>{score[1]}</p>
 				</th>
 				<th className='firstcolumn'>
@@ -29,23 +29,39 @@ const Scoreboard = () => {
 
 	return (
 		<div className='scores'>
-			<h2>
-				Lista najlepszych wyników: <button onClick={sortNormally}>nie sortuj</button>
-			</h2>
+			<div className='scoreBoardHeader'>
+				<h2>Lista Twoich wyników:</h2>
+			
+			</div>
 
 			<table>
 				<thead>
-					<tr>
-						<th className='firstcolumn'>
-							<p className='title'>Liczba punktów</p> <button onClick={sortByPoints}>sort</button>
+					<tr className='firstcolumname'>
+						<th>
+							<div>
+								<p className='title'>Liczba punktów</p>
+								<button className='sortBtn' onClick={sortByPoints}>
+									<i class='fa-solid fa-arrow-down'></i>
+								</button>
+							</div>
 						</th>
-						<th className='firstcolumn'>
-							<p className='title'>Imię</p>
-							<button onClick={sortByName}>sort</button>
+						<th className='firstcolumname'>
+							<div>
+								<p className='title'>Imię</p>
+								<button className='sortBtn' onClick={sortByName}>
+									<i class='fa-solid fa-arrow-down'></i>
+								</button>
+							</div>
 						</th>
-						<th className='firstcolumn'>
-							<p className='title'>Data</p>
-							<button onClick={sortByDate}>sort</button>
+						<th className='firstcolumname'>
+							{' '}
+							<div>
+								<p className='title'>Data</p>
+
+								<button className='sortBtn' onClick={sortByDate}>
+									<i class='fa-solid fa-arrow-down'></i>
+								</button>
+							</div>
 						</th>
 					</tr>
 				</thead>
