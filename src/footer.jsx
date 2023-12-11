@@ -87,13 +87,13 @@ const Footer = props => {
 	return (
 		<div className={support === 1 ? 'diceTeacher active' : 'diceTeacher'}>
 			<div className='firstLine'>
-				<p>Twój wirtualny pomocnik:</p>
+				<h2>Twój wirtualny pomocnik:</h2>
 				<button
 					className='support'
 					data-tooltip-id='fourth-tooltip'
 					data-tooltip-html='<div><h3>Wirtualny pomocnik</h3><p>Jeśli po rzucie nie wiesz jakie masz możliwości to poniżej wyśiwietlą się możliwości wraz z wynikiem. Po kliknięciu w przycisk podpowiedzi określone kości zostaną zaznaczone automatycznie.</p></div '
 					data-tooltip-variant='success'>
-					?
+					<i className='fa-solid fa-question'></i>
 				</button>
 				<Tooltip id='fourth-tooltip' place='top-end' className='supportWindow' events={['hover']} />
 			</div>

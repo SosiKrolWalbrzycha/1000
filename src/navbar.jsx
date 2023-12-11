@@ -43,7 +43,7 @@ const Navbar = () => {
 		<div className='navbar'>
 			<div className='navtext'>
 				<div className='logo'>
-					<img src={logo} alt='Dices Logo' />
+				<i class="fa-solid fa-dice"></i>
 				</div>
 				<div className='title'>
 					<h1>Nauka Tysiąca</h1>
@@ -62,7 +62,7 @@ const Navbar = () => {
 			</div>
 
 			<div className='range'>
-				<p>Zadecyduj czy potrzebujesz pomocy:</p>
+				<h2>Zadecyduj czy potrzebujesz pomocy:</h2>
 				<div className='switcher'><p className='txt'>NIE</p><input className='rangeinput' type='range' min='0' max='1' value={support} onChange={handleRange}/><p className='txt'>TAK</p></div>
 				
 				

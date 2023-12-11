@@ -193,7 +193,7 @@ const Content = props => {
 					<Tooltip id='third-tooltip' place='bottom-end' className='supportWindow' events={['hover']} />
 				</div>
 			</div>
-			<p>{message}</p>
+			<h2>{message}</h2>
 			<div className='dices'>{singleDiceScore(cubeScore)}</div>
 			<div className='buttons'>
 				<button className={throwNumber === 0 ? 'throwButton activeButton' : 'throwButton'} onClick={handleButton}>
@@ -239,7 +239,7 @@ const Content = props => {
 							: 'throwButton'
 					}
 					onClick={resetState}>
-					Jeśli nie zaznaczysz układu będzie fura - kliknij aby zacząć od nowa
+					Jeśli nie zaznaczysz w tym rzucie układu lub kości punktowanej to będzie fura - kliknij aby zacząć od nowa
 				</button>
 				<button
 					onClick={showAddScore}
